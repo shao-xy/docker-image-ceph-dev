@@ -1,0 +1,3 @@
+# Ignore local "build" directory
+ceph/build
+ceph/.git*
