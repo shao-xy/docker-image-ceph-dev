@@ -9,9 +9,12 @@ ADD ceph.tar.gz /ceph-src/
 #    && git add . \
 #    && git commit -m "Initial ceph-15.2.13" \
 RUN set -x; cd /ceph-src/ceph/ \
-    && yum install -y git libarchive \
+    && dnf install -y git libarchive python3-virtualenv \
+    && ln -s pip3 /usr/bin/pip \
     && ./install-deps.sh \
     && ./do_cmake.sh \
     && cd build/ \
-    && make -j4 \
-    && make install
+    && make -j64 \
+    && make install -j64 \
+    && cd .. \
+    && rm -rf build /usr/bin/ceph_test*
